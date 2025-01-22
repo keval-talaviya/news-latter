@@ -1,0 +1,164 @@
+<%- include('header') %>
+
+  <div id="overlay" class="overlay"></div>
+  <div class="layout">
+    <main class="content">
+      <div>
+        <div class="nav navbar navbar-expand-xl navbar-light iq-navbar">
+          <div class="container-fluid navbar-inner">
+            <h5 class="site-menu-title">NEWS</h5>
+            <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="p-0 ps-3 nav-link d-flex align-items-center position-relative" href="#" id="profile-setting"
+                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="/images/64.jpg" alt="User-Profile"
+                    class="theme-color-default-img img-fluid avatar avatar-40 avatar-rounded" loading="lazy" />
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-setting">
+                  <li>
+                    <a class="dropdown-item" href="/logout">
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <a id="btn-toggle" href="#" class="sidebar-toggler break-point-sm">
+              <i class="ri-menu-line ri-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div class="setting-section">
+          <div class="setting-title mt-5">
+            <h4>Create News</h4>
+          </div>
+          <div class="accordion setting-accordion mt-5" id="accordionExample">
+            <div class="accordion-item mb-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Create News
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <form action="/admin/news" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="category" class="form-label">
+                            Category:
+                        </label>
+                        <select name="category" class="form-select" id="category">
+                            <option value="World News / International">World News / International</option>
+                            <option value="National News">National News
+                            </option>
+                            <option value="Politics">Politics</option>
+                            <option value="Business / Economy">Business / Economy</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Sports">Sports</option>
+                            <option value="Health">Health</option>
+                            <option value="Science">Science</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Lifestyle">Lifestyle</option>
+                            <option value="Education">Education</option>
+                            <option value="Crime">Crime</option>
+                            <option value="Opinion / Editorial">Opinion / Editorial</option>
+                            <option value="Weather">Weather</option>
+                            <option value="Science & Environment">Science & Environment</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title:</label>
+                        <input type="text" name="title" class="form-control" id="title" required onkeyup="generateSlug()" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">Slug:</label>
+                        <input type="text" name="slug" class="form-control" id="slug" required />
+                    </div>
+                    <script>
+                        function generateSlug() {
+                            const title = document.getElementById('title').value;
+                            const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+                            document.getElementById('slug').value = slug;
+                        }
+                    </script>
+                    <div class="mb-3">
+                        <label for="shorDesc" class="form-label">shorDesc:</label>
+                       
+                        <textarea name="shorDesc" id="shorDesc" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="banner" class="form-label">Banner:</label>
+                        <input type="file" name="banner" class="form-control" id="banner" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="image1" class="form-label">image1:</label>
+                        <input type="file" name="image1" class="form-control" id="image1" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="image2" class="form-label">image2:</label>
+                        <input type="file" name="image2" class="form-control" id="image2" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="descOne" class="form-label">descOne:</label>
+                        <textarea name="descOne" id="descOne" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descTwo" class="form-label">descTwo:</label>
+                        <textarea name="descTwo" id="descTwo" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descThree" class="form-label">descThree:</label>
+                        <textarea name="descThree" id="descThree" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descFour" class="form-label">descFour:</label>
+                        <textarea name="descFour" id="descFour" class="form-control"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="metaTitle" class="form-label">Meta Title:</label>
+                        <input type="text" name="metaTitle" class="form-control" id="metaTitle" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="metaDesc" class="form-label">metaDesc:</label>
+                        <input type="text" name="metaDesc" class="form-control" id="metaDesc" required />
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+
+   <!-- Initialize Froala Editor -->
+   <script>
+    // new FroalaEditor('#shorDesc', {
+    //     toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+    //     height: 300
+    // });
+
+    new FroalaEditor('#descOne', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+
+    new FroalaEditor('#descTwo', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+
+    new FroalaEditor('#descThree', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+    new FroalaEditor('#descFour', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+</script>
+  <%- include('footer') %>

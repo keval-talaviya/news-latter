@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>NewsDetail</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="website/css/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <div class="mobilewith ">
+        <!-- header  -->
+        <div class="flex justify-center  p-4">
+            <img src="website/assets/image 10.png" alt="" class="h-20">
+        </div>
+
+        <!-- Search -->
+        <div class="p-4">
+            <form class="max-w-md mx-auto">
+                <label for="default-search"
+                    class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                        <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                        </svg>
+                    </div>
+                    <input type="search" id="default-search"
+                        class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-white focus:border-white "
+                        placeholder="Search News..." required />
+                </div>
+            </form>
+        </div>
+        <div class="bg-gray-100 rounded m-2 py-5">
+            <p class="text-center">Are You Sure You Want To Intrested ?</p>
+            <div class="flex justify-center pt-5"><button type="button"
+                    class="text-white bg-blue-700 hover:bg-blue-800  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">Yes</button>
+                <button type="button"
+                    class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 ">No</button>
+            </div>
+        </div>
+        <div>
+            <div class="p-2">
+                <% if (details && details.banner) { %>
+                    <img src="<%= details.banner %>" class="w-full" alt="">
+                <% } %>
+                <% if (details && details.title) { %>
+                <p class="text-[20px] font-semibold my-5"><%= details.title %></p>
+                <% } %>
+                <% if (details && details.shorDesc) { %>
+                    <p> <% details.shorDesc %></p>
+                    <% } %>
+
+                <div class="grid grid-cols-2 gap-3 py-2 ">
+                    <div>
+                        <% if (details && details.image1) { %>
+
+                        <img src="<%= details.image1 %>" alt="">
+                        <% } %>
+
+                    </div>
+                    <div>
+                        <% if (details && details.image2) { %>
+
+                        <img src="<%= details.image2 %>" alt="">
+                        <% } %>
+
+                    </div>
+                </div>
+                <% if (details ) { %>
+
+                <p><%- details.descOne %></p>
+                <p><%- details.descTwo %></p>
+                <p><%- details.descThree %></p>
+                <p><%- details.descFour %></p>
+                <% } %>
+
+
+            </div>
+        </div>
+
+         <!--News -->
+         <% data.forEach(function(news) { %>
+            <div class="p-2">
+                <a href="/<%= news.slug %>">
+                    <div class="p-2 rounded bg-[#f2f2f2] shadow-lg">
+                        <img src="<%= news.banner %>" class="w-full" alt="<%= news.title %>">
+                        <div class="flex justify-between pt-5">
+                            <div>
+                                <p class="flex space-x-2">
+                                    <img src="website/assets/alarm-clock.png" class="h-4" alt="">
+                                    <span class="text-[14px]"><%= new Date(news.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }) %></span>
+                                </p>
+                            </div>
+                            <div>
+                                <img src="website/assets/share.png" class="h-6" id="share-btn-<%= news.id %>" alt="Share">
+                            </div>
+                        </div>
+                        <p class="text-[20px] font-semibold mt-5"><%= news.title %></p>
+                        <p class="text-gray-600 mt-2"><%= news.shorDesc %></p>
+                    </div>
+                </a>
+            </div>
+        <% }); %>
+    </div>
+
+<script>
+    // Set meta title
+    if (details && details.metaTitle) {
+        document.title = details.metaTitle;
+    }
+
+    // Set meta description
+    var metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription && details && details.metaDesc) {
+        metaDescription.setAttribute('content', '<%= details ? details.metaDesc : "" %>');
+    } else if (details && details.metaDesc) {
+        var newMetaDescription = document.createElement('meta');
+        newMetaDescription.name = 'description';
+        newMetaDescription.content = '<%= details ? details.metaDesc : "" %>';
+        document.head.appendChild(newMetaDescription);
+    }
+</script>
+</body>
+
+</html>

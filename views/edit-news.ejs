@@ -1,0 +1,169 @@
+<%- include('header') %>
+
+  <div id="overlay" class="overlay"></div>
+  <div class="layout">
+    <main class="content">
+      <div>
+        <div class="nav navbar navbar-expand-xl navbar-light iq-navbar">
+          <div class="container-fluid navbar-inner">
+            <h5 class="site-menu-title">NEWS</h5>
+            <ul class="mb-2 navbar-nav ms-auto align-items-center navbar-list mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="p-0 ps-3 nav-link d-flex align-items-center position-relative" href="#" id="profile-setting"
+                  role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="/images/64.jpg" alt="User-Profile"
+                    class="theme-color-default-img img-fluid avatar avatar-40 avatar-rounded" loading="lazy" />
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profile-setting">
+                  <li>
+                    <a class="dropdown-item" href="/logout">
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <a id="btn-toggle" href="#" class="sidebar-toggler break-point-sm">
+              <i class="ri-menu-line ri-xl"></i>
+            </a>
+          </div>
+        </div>
+        <div class="setting-section">
+          <div class="setting-title mt-5">
+            <h4>Edit News</h4>
+          </div>
+          <div class="accordion setting-accordion mt-5" id="accordionExample">
+            <div class="accordion-item mb-3">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                  aria-expanded="true" aria-controls="collapseOne">
+                  Edit News
+                </button>
+              </h2>
+              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <form action="/admin/news/edit" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                      <label for="category" class="form-label">
+                        Category:
+                      </label>
+                      <select name="category" class="form-select" id="edit-category">
+                        <option value="World News / International" <%= data.category === "World News / International" ? "selected" : "" %>>World News / International</option>
+                        <option value="National News" <%= data.category === "National News" ? "selected" : "" %>>National News</option>
+                        <option value="Politics" <%= data.category === "Politics" ? "selected" : "" %>>Politics</option>
+                        <option value="Business / Economy" <%= data.category === "Business / Economy" ? "selected" : "" %>>Business / Economy</option>
+                        <option value="Technology" <%= data.category === "Technology" ? "selected" : "" %>>Technology</option>
+                        <option value="Sports" <%= data.category === "Sports" ? "selected" : "" %>>Sports</option>
+                        <option value="Health" <%= data.category === "Health" ? "selected" : "" %>>Health</option>
+                        <option value="Science" <%= data.category === "Science" ? "selected" : "" %>>Science</option>
+                        <option value="Entertainment" <%= data.category === "Entertainment" ? "selected" : "" %>>Entertainment</option>
+                        <option value="Lifestyle" <%= data.category === "Lifestyle" ? "selected" : "" %>>Lifestyle</option>
+                        <option value="Education" <%= data.category === "Education" ? "selected" : "" %>>Education</option>
+                        <option value="Crime" <%= data.category === "Crime" ? "selected" : "" %>>Crime</option>
+                        <option value="Opinion / Editorial" <%= data.category === "Opinion / Editorial" ? "selected" : "" %>>Opinion / Editorial</option>
+                        <option value="Weather" <%= data.category === "Weather" ? "selected" : "" %>>Weather</option>
+                        <option value="Science & Environment" <%= data.category === "Science & Environment" ? "selected" : "" %>>Science & Environment</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Title:</label>
+                      <input type="text" name="title" class="form-control" id="edit-title" value="<%= data.title %>" required
+                        onkeyup="generateSlug()" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="slug" class="form-label">Slug:</label>
+                      <input type="text" name="slug" class="form-control"  id="edit-slug" value="<%= data.slug %>" required />
+                    </div>
+
+                    <div class="mb-3">
+                      <label for="shorDesc" class="form-label">shorDesc:</label>
+                      <textarea name="shorDesc" id="edit-shorDesc" class="form-control"><%= data.shorDesc %></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="banner" class="form-label">Banner:</label>
+                      <input type="file" name="banner" class="form-control" id="banner" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="image1" class="form-label">image1:</label>
+                      <input type="file" name="image1" class="form-control" id="image1" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="image2" class="form-label">image2:</label>
+                      <input type="file" name="image2" class="form-control" id="image2" />
+                    </div>
+                    <div class="mb-3">
+                      <label for="descOne" class="form-label">descOne:</label>
+                      <textarea name="descOne" id="edit-descOne" class="form-control"><%= data.descOne %></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="descTwo" class="form-label">descTwo:</label>
+                      <textarea name="descTwo" id="edit-descTwo" class="form-control"><%= data.descTwo %></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="descThree" class="form-label">descThree:</label>
+                      <textarea name="descThree" id="edit-descThree" class="form-control"><%= data.descThree %></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="descFour" class="form-label">descFour:</label>
+                      <textarea name="descFour" id="edit-descFour" class="form-control"><%= data.descFour %></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="metaTitle" class="form-label">Meta Title:</label>
+                      <input type="text" name="metaTitle" class="form-control" id="edit-metaTitle" value="<%= data.metaTitle %>" required />
+                    </div>
+                    <div class="mb-3">
+                      <label for="metaDesc" class="form-label">metaDesc:</label>
+                      <input type="text" name="metaDesc" class="form-control" id="edit-metaDesc" value="<%= data.metaDesc %>" required />
+                    </div>
+
+                    <input type="hidden" name="id" id="id" value="<%= data.id %>">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  
+  
+  <script>
+    function generateSlug() {
+        const title = document.getElementById('edit-title').value;
+        const slug = title.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
+        document.getElementById('edit-slug').value = slug;
+    }
+</script>
+
+
+   <!-- Initialize Froala Editor -->
+   <script>
+    // new FroalaEditor('#shorDesc', {
+    //     toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+    //     height: 300
+    // });
+
+    new FroalaEditor('#edit-descOne', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+
+    new FroalaEditor('#edit-descTwo', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+
+    new FroalaEditor('#edit-descThree', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+    new FroalaEditor('#edit-descFour', {
+        toolbarButtons: ['bold', 'italic', 'underline', 'strikeThrough', '|', 'align', 'formatOL', 'formatUL', 'insertLink', 'insertImage'],
+        height: 300
+    });
+</script>
+  <%- include('footer') %>

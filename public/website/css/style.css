@@ -1,0 +1,54 @@
+body {
+    background-color: black;
+}
+
+.mobilewith {
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    margin: auto;
+    height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: var(--light-white-color);
+    border-right: solid white 1px;
+    border-left: solid white 1px;
+    background-color: #fff;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    background-size: cover;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .mobilewith {
+        min-width: 100%;
+    }
+}
+
+.countdown-container {
+    background-color: #eaf2ff;
+    padding: 5px 10px;
+    /* border-radius: 20px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.countdown-container .icon {
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.time {
+    /* font-weight: bold; */
+    color: #202b3f;
+}
